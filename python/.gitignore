@@ -1,0 +1,4 @@
+## Insert Python-specific stuff here
+venv/**/*
+*pyc
+/.idea/
