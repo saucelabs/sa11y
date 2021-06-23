@@ -29,6 +29,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "rake", "~> 13.0"
+  spec.add_dependency "rspec", "~> 3.0"
   spec.add_dependency "rubocop", "~> 1.7"
   spec.add_dependency "selenium-webdriver", ">= 3.142.7"
 end

@@ -29,7 +29,10 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+driver = Selenium::WebDriver.for :chrome 
+results = Sa11y::Analyze(driver).results
+```
 
 ## Development
 

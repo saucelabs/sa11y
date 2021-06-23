@@ -6,3 +6,6 @@ Style/StringLiterals:
 
 Layout/LineLength:
   Max: 120
+
+Style/AsciiComments:
+  Enabled: false
