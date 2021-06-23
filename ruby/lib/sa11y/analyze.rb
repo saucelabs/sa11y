@@ -5,6 +5,8 @@ require "selenium-webdriver"
 module Sa11y
   # Analyzes Current Webpage with axe™ Accessibility Tool from Deque
   class Analyze
+    attr_accessor :js_lib
+
     # https://github.com/dequelabs/axe-core-maven-html/blob/61447b/src/main/java/com/deque/html/axecore/selenium/
     # AxeBuilder.java#L83-L95
     # Copyright (C) 2020 Deque Systems Inc.,
@@ -15,13 +17,13 @@ module Sa11y
       function (err, results) {  {    if (err) {      throw new Error(err);    }    callback(results);  }});
     AXE
 
-    def initialize(driver)
+    def initialize(driver, js_lib: nil)
       @driver = driver
+      @js_lib = js_lib || File.read(File.expand_path('../../scripts/axe.min.js', __FILE__))
     end
 
     def results
-      js_lib = File.read("lib/scripts/axe.min.js")
-      @driver.execute_script(js_lib)
+      @driver.execute_script(@js_lib)
       @driver.execute_async_script(AXE_RESULTS, nil, "{}")
     end
   end
