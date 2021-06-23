@@ -8,3 +8,6 @@
 /tmp/
 /.idea
 Gemfile.lock
+/node_modules/
+/lib/scripts/axe.min.js
+/package-lock.json

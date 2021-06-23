@@ -6,3 +6,16 @@ require "rubocop/rake_task"
 RuboCop::RakeTask.new
 
 task default: :rubocop
+
+task :axe_core do
+  sh "npm install"
+  source = "node_modules/axe-core/axe.min.js"
+  target = "lib/scripts/"
+  FileUtils.mkdir target unless File.exist?(target)
+  FileUtils.cp_r File.new(source), File.new(target)
+end
+
+task :build_gem do
+  Rake::Task["axe_core"].invoke
+  Rake::Task["build"].invoke
+end
