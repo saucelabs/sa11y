@@ -10,3 +10,9 @@ class TestInit(object):
 
         assert not len(results.get('violations', None)) == 0, "No violations found"
 
+    def test_different_js(self):
+        driver = webdriver.Chrome()
+        js_lib = open("tests/resources/old.axe.min.js", "r").read()
+        results = Analyze(driver, js_lib=js_lib).results()
+
+        assert results.get('testEngine', None).get('version', None) == "3.5.3", "Wrong version found"
