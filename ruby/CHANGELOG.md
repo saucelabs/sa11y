@@ -1,5 +1,3 @@
-## [Unreleased]
-
-## [0.1.0] - 2021-06-23
+## [Unreleased] - YYYY-MM-DD
 
 - Initial release
