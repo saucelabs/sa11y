@@ -1,6 +1,26 @@
+from distutils.core import Command
 from setuptools import setup
 
+class NPMInstall(Command):
+    user_options = []
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        self.spawn(['npm', 'install'])
+        self.spawn(['rm', '-rf', 'sa11y/scripts'])
+        self.spawn(['mkdir', 'sa11y/scripts'])
+        self.spawn(['cp', 'node_modules/axe-core/axe.min.js', 'sa11y/scripts/'])
+
+
 setup(
+    cmdclass={
+        'npm_install': NPMInstall
+    },
     name='sa11y',
     version='0.1',
     packages=[],

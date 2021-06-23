@@ -43,6 +43,9 @@ To install dependencies, do the following:
 
     pip install -r requirements.txt
 
+To build project:
+
+    python setup.py npm_install install
 
 Testing
 ---------
