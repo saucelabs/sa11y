@@ -13,26 +13,42 @@ Note: This project does not support all of the features available in axe™, but
 provided for the flexibility and convenience of Ruby users.
 
 
-Example Usage
+Prerequisites
 --------------
 
+* Install `python`
+* Install `pip`
 
-Requirements
+Installing
+--------------
+
+    $ pip install sa11y
+
+Usage
 -------------
 
+Just pass in a valid driver instance to the `Analyze` class constructor and call the `#results` method.
 
-Installation
--------------
+    driver = webdriver.Chrome()
+    Analyze(driver).results()
 
-install from pip:
+If your site does not use iFrames, you can improve performance slightly by turning off iframe checks:
 
-    pip install sa11y
+    driver = webdriver.Chrome()
+    analyze = Analyze(driver)
+    analyze.iframes = False
+    analyze.results()
 
+This gem comes packaged with the latest axe™ version at release. If you want to change this, specify the JS library you want to use:
+
+    driver = webdriver.Chrome()
+    js_lib = open("tests/resources/old.axe.min.js", "r").read()
+    Analyze(driver, js_lib=js_lib).results()
 
 Development
 -------------
 
-This project will be developed initially in Python 3.x so please create a
+This project will be developed in Python 3.x so please create a
 `virtual environment <https://pip.pypa.io/en/stable/>`_:
 
     python3 -m venv venv
@@ -43,10 +59,39 @@ To install dependencies, do the following:
 
     pip install -r requirements.txt
 
-To build project:
+Deployment
+-------------
+
+The project needs to include a dynamically generated `axe.min.js` file, and can be built with this command:
 
     python setup.py npm_install install
+
+Contributing
+-------------
+
+Please read [CONTRIBUTING.md](../CONTRIBUTING.md) for details on our process for submitting pull requests to us,
+and please ensure you follow the [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md).
+
+Versioning
+-------------
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available,
+see the [tags on this repository](https://github.com/saucelabs/sa11y/tags).
+
+License
+-------------
+
+This project is licensed under the MPL-2.0 License - see the [LICENSE.md](LICENSE.md) file for details
+
+Acknowledgments
+-------------
+
+* Thanks to [@dequelabs](https://github.com/dequelabs) for their contributions to accessibility with the axe™ project
+* Thanks to [@seleniumhq](https://github.com/seleniumhq) for their contributions to browser automation with the Selenium project
 
 Testing
 ---------
 
+To run all tests, run the following:
+
+    pytest

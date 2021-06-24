@@ -1,3 +1,6 @@
+# https://github.com/dequelabs/axe-core-maven-html/blob/61447b/src/main/java/com/deque/html/axecore/selenium/
+# AxeBuilder.java#L83-L95
+# Copyright (C) 2020 Deque Systems Inc.,
 axe_results = """var callback = arguments[arguments.length - 1];var context = typeof arguments[0] === 'string' ?
 JSON.parse(arguments[0]) : arguments[0];context = context || document; var options = JSON.parse(arguments[1]);
 axe.run(context, options, function (err, results) {  {    if (err) {      throw new Error(err);    }    callback(results);  }});"""
