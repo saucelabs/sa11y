@@ -19,7 +19,7 @@ module Sa11y
 
     def initialize(driver, js_lib: nil)
       @driver = driver
-      @js_lib = js_lib || File.read(File.expand_path('../../scripts/axe.min.js', __FILE__))
+      @js_lib = js_lib || File.read(File.expand_path("../scripts/axe.min.js", __dir__))
       @iframes = true
     end
 
