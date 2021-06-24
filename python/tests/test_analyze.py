@@ -16,3 +16,19 @@ class TestInit(object):
         results = Analyze(driver, js_lib=js_lib).results()
 
         assert results.get('testEngine', None).get('version', None) == "3.5.3", "Wrong version found"
+
+    def test_iframes(self):
+        driver = webdriver.Chrome()
+        driver.get("http://watir.com/examples/iframes.html")
+
+        results = Analyze(driver).results()
+        assert len(results.get('violations', None)) == 5, "No violations found"
+
+    def test_toggle_off_iframes(self):
+        driver = webdriver.Chrome()
+        driver.get("http://watir.com/examples/iframes.html")
+
+        analyze = Analyze(driver)
+        analyze.iframes = False
+        results = analyze.results()
+        assert len(results.get('violations', None)) == 3, "No violations found"

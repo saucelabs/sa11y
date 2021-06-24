@@ -7,7 +7,31 @@ class Analyze:
     def __init__(self, driver=None, js_lib=None):
         self.driver = driver
         self.js_lib = js_lib or open("sa11y/scripts/axe.min.js", "r").read()
+        self._iframes = True
+
+    @property
+    def iframes(self):
+        return self._iframes
+
+    @iframes.setter
+    def iframes(self, bool):
+        self._iframes = bool
 
     def results(self):
         self.driver.execute_script(self.js_lib)
+        if self._iframes:
+            self.driver.switch_to.default_content()
+            self.manage_frames()
+
         return self.driver.execute_async_script(axe_results, None, "{}")
+
+    def manage_frames(self):
+        frames = self.driver.find_elements_by_tag_name("iframe")
+        if len(frames) == 0:
+            return
+
+        for frame in frames:
+            self.driver.switch_to.frame(frame)
+            self.driver.execute_script(self.js_lib)
+            self.manage_frames()
+            self.driver.switch_to.parent_frame()
