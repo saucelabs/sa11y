@@ -21,8 +21,7 @@ Gem::Specification.new do |spec|
   spec.metadata["source_code_uri"] = "https://github.com/saucelabs/sa11y/blob/main/ruby/"
   spec.metadata["changelog_uri"] = "https://github.com/saucelabs/sa11y/blob/main/ruby/CHANGELOG.md"
 
-  spec.files = %w[CHANGELOG.md LICENSE.md Gemfile README.md Rakefile sa11y.gemspec] +
-               Dir["lib/sa11y/**/*"] + Dir["lib/scripts/*"]
+  spec.files = %w[LICENSE.md Gemfile README.md Rakefile sa11y.gemspec] + Dir["lib/sa11y/**/*"] + Dir["lib/scripts/*"]
 
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
