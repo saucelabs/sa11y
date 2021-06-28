@@ -18,6 +18,7 @@ Prerequisites
 
 * Install `python`
 * Install `pip`
+* Install `npm`
 
 Installing
 --------------
@@ -58,6 +59,11 @@ This project will be developed in Python 3.x so please create a
 To install dependencies, do the following:
 
     pip install -r requirements.txt
+
+To install required scripts:
+
+    python setup.py npm_install
+
 
 Deployment
 -------------

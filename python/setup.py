@@ -28,7 +28,7 @@ setup(
     license='MPL-2.0',
     author='titusfortner',
     author_email='titusfortner@gmail.com',
-    keywords=['selenium', 'testing', 'accessibility', 'Deque', 'zxe'],
+    keywords=['selenium', 'testing', 'accessibility', 'Deque', 'axe'],
     install_requires=[
         'selenium',
         'pytest'
