@@ -23,20 +23,33 @@ module Sa11y
     it "handles iframes" do
       @driver.get("http://watir.com/examples/nested_iframes.html")
 
-      expect_any_instance_of(Selenium::WebDriver::Driver)
-        .to receive(:switch_to).exactly(7).times.and_call_original
+      analyze = Analyze.new(@driver)
+      expect(number_problems(analyze)).to eq 16
+    end
 
-      Analyze.new(@driver).results
+    it "handles frames" do
+      @driver.get("http://watir.com/examples/nested_frames.html")
+
+      analyze = Analyze.new(@driver)
+      expect(number_problems(analyze)).to eq 14
     end
 
     it "ignores iframes when requested" do
-      analyze = Analyze.new(@driver)
-      analyze.iframes = false
+      @driver.get("http://watir.com/examples/nested_iframes.html")
 
-      @driver.get("http://watir.com/examples/iframes.html")
+      analyze = Analyze.new(@driver, frames: false)
+      expect(number_problems(analyze)).to eq 7
+    end
 
-      expect_any_instance_of(Selenium::WebDriver::Driver).not_to receive(:switch_to)
-      analyze.results
+    it "ignores frames when requested" do
+      @driver.get("http://watir.com/examples/nested_frames.html")
+
+      analyze = Analyze.new(@driver, frames: false)
+      expect(number_problems(analyze)).to eq 6
+    end
+
+    def number_problems(analyze)
+      analyze.results["violations"].map {|v| v["nodes"].size}.inject(0, :+)
     end
   end
 end

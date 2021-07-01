@@ -52,18 +52,28 @@ driver = Selenium::WebDriver.for :chrome
 Sa11y::Analyze(driver).results
 ```
 
-If your site does not use iFrames, you can improve performance slightly by turning off iframe checks:
-```ruby
-driver = Selenium::WebDriver.for :chrome 
-analyze = Sa11y::Analyze(driver)
-analyze.iframes = false
-```
-
-This gem comes packaged with the latest axe™ version at release. If you want to change this, specify the JS library you want to use:
+By default, sa11y inspects elements in all frames and iframes on the page.
+If your site does not use frames, you can improve performance slightly by turning off frame checks:
 ```ruby
 driver = Selenium::WebDriver.for :chrome
-js_lib = File.read("path/to/axe.min.js"))
-Sa11y::Analyze(driver, js_lib: js_lib)
+analyze = Sa11y::Analyze(driver, frames: false)
+analyze.results
+```
+
+By default, sa11y does not inspect frames from cross origins. If you need to analyze frames
+originating from a different domain, you need to turn this on:
+```ruby
+driver = Selenium::WebDriver.for :chrome
+analyze = Sa11y::Analyze(driver, cross_origin: true)
+analyze.results
+```
+
+This gem comes packaged with the latest axe™ version at release. If you want to change this, 
+specify the JS library you want to use:
+```ruby
+driver = Selenium::WebDriver.for :chrome
+Sa11y::Analyze(driver, js_lib: File.read("path/to/axe.min.js"))
+analyze.results
 ```
 
 ## Development
