@@ -1,40 +1,63 @@
 # https://github.com/dequelabs/axe-core-maven-html/blob/61447b/src/main/java/com/deque/html/axecore/selenium/
 # AxeBuilder.java#L83-L95
 # Copyright (C) 2020 Deque Systems Inc.,
-axe_results = """var callback = arguments[arguments.length - 1];var context = typeof arguments[0] === 'string' ?
+axe_run_script = """var callback = arguments[arguments.length - 1];var context = typeof arguments[0] === 'string' ?
 JSON.parse(arguments[0]) : arguments[0];context = context || document; var options = JSON.parse(arguments[1]);
 axe.run(context, options, function (err, results) {  {    if (err) {      throw new Error(err);    }    callback(results);  }});"""
 
+# https://github.com/dequelabs/axe-core-maven-html/blob/61447b/src/main/java/com/deque/html/axecore/selenium/
+# AxeBuilder.java#L97
+# Copyright (C) 2020 Deque Systems Inc.,
+iframe_allowed_script = "axe.configure({ allowedOrigins: ['<unsafe_all_origins>'] });"
+
 class Analyze:
 
-    def __init__(self, driver=None, js_lib=None):
+    def __init__(self, driver=None, js_lib=None, frames=True, cross_origin=False):
         self.driver = driver
-        self.js_lib = js_lib or open("sa11y/scripts/axe.min.js", "r").read()
-        self._iframes = True
+        self._js_lib = js_lib or open("../sa11y/scripts/axe.min.js", "r").read()
+        self._frames = frames
+        self._cross_origin = cross_origin
 
     @property
-    def iframes(self):
-        return self._iframes
+    def frames(self):
+        return self._frames
 
-    @iframes.setter
-    def iframes(self, bool):
-        self._iframes = bool
+    @frames.setter
+    def frames(self, frames):
+        self._frames = frames
+
+    @property
+    def js_lib(self):
+        return self._js_lib
+
+    @js_lib.setter
+    def js_lib(self, js_lib):
+        self._js_lib = js_lib
+
+    @property
+    def cross_origin(self):
+        return self._cross_origin
+
+    @cross_origin.setter
+    def cross_origin(self, cross_origin):
+        self._cross_origin = cross_origin
 
     def results(self):
-        self.driver.execute_script(self.js_lib)
-        if self._iframes:
+        if self._frames:
             self.driver.switch_to.default_content()
             self.manage_frames()
+        else:
+            self.driver.execute_script(self.js_lib)
 
-        return self.driver.execute_async_script(axe_results, None, "{}")
+        return self.driver.execute_async_script(axe_run_script, None, "{}")
 
     def manage_frames(self):
-        frames = self.driver.find_elements_by_tag_name("iframe")
-        if len(frames) == 0:
-            return
+        self.driver.execute_script(self.js_lib)
+        if self._cross_origin:
+            self.driver.execute_script(iframe_allowed_script)
+        frames = self.driver.find_elements_by_xpath(".//*[local-name()='frame' or local-name()='iframe']")
 
         for frame in frames:
             self.driver.switch_to.frame(frame)
-            self.driver.execute_script(self.js_lib)
             self.manage_frames()
             self.driver.switch_to.parent_frame()

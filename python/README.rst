@@ -33,11 +33,18 @@ Just pass in a valid driver instance to the `Analyze` class constructor and call
     driver = webdriver.Chrome()
     Analyze(driver).results()
 
-If your site does not use iFrames, you can improve performance slightly by turning off iframe checks:
+By default, sa11y inspects elements in all frames and iframes on the page.
+If your site does not use frames, you can improve performance slightly by turning off frame checks:
 
     driver = webdriver.Chrome()
-    analyze = Analyze(driver)
-    analyze.iframes = False
+    analyze = Analyze(driver, frames=false)
+    analyze.results()
+
+By default, sa11y does not inspect frames from cross origins. If you need to analyze frames
+originating from a different domain, you need to turn this on:
+
+    driver = webdriver.Chrome()
+    analyze = Analyze(driver, cross_origin=false)
     analyze.results()
 
 This gem comes packaged with the latest axe™ version at release. If you want to change this, specify the JS library you want to use:
