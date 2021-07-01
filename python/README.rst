@@ -70,7 +70,10 @@ Deployment
 
 The project needs to include a dynamically generated `axe.min.js` file, and can be built with this command:
 
-    python setup.py npm_install install
+    python setup.py npm_install install sdist
+
+To release, makes sure you have twine installed and run:
+    twine upload -r  pypi dist/*
 
 Contributing
 -------------
