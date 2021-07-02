@@ -1,3 +1,5 @@
+import os
+
 # https://github.com/dequelabs/axe-core-maven-html/blob/61447b/src/main/java/com/deque/html/axecore/selenium/
 # AxeBuilder.java#L83-L95
 # Copyright (C) 2020 Deque Systems Inc.,
@@ -12,9 +14,9 @@ iframe_allowed_script = "axe.configure({ allowedOrigins: ['<unsafe_all_origins>'
 
 class Analyze:
 
-    def __init__(self, driver=None, js_lib=None, frames=True, cross_origin=False):
+    def __init__(self, driver, js_lib=None, frames=True, cross_origin=False):
         self.driver = driver
-        self._js_lib = js_lib or open("../sa11y/scripts/axe.min.js", "r").read()
+        self._js_lib = js_lib or open(os.path.join(os.path.dirname(__file__), "scripts/axe.min.js"), "r").read()
         self._frames = frames
         self._cross_origin = cross_origin
 
@@ -47,12 +49,12 @@ class Analyze:
             self.driver.switch_to.default_content()
             self.manage_frames()
         else:
-            self.driver.execute_script(self.js_lib)
+            self.driver.execute_script(self._js_lib)
 
         return self.driver.execute_async_script(axe_run_script, None, "{}")
 
     def manage_frames(self):
-        self.driver.execute_script(self.js_lib)
+        self.driver.execute_script(self._js_lib)
         if self._cross_origin:
             self.driver.execute_script(iframe_allowed_script)
         frames = self.driver.find_elements_by_xpath(".//*[local-name()='frame' or local-name()='iframe']")
