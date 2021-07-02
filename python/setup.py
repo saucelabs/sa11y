@@ -22,7 +22,7 @@ setup(
         'npm_install': NPMInstall
     },
     name='sa11y',
-    version='0.1',
+    version='0.2.0',
     packages=[],
     url='https://github.com/saucelabs/sa11y',
     license='MPL-2.0',
