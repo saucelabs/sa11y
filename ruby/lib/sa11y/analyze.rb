@@ -1,3 +1,9 @@
+# Copyright (c) 2021 Sauce Labs
+#
+# This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+# If a copy of the MPL was not distributed with this file, You can obtain one at
+# http://mozilla.org/MPL/2.0/.
+
 # frozen_string_literal: true
 
 require "selenium-webdriver"
@@ -21,7 +27,6 @@ module Sa11y
     # AxeBuilder.java#L97
     # Copyright (C) 2020 Deque Systems Inc.,
     IFRAME_ALLOWED_SCRIPT = "axe.configure({ allowedOrigins: ['<unsafe_all_origins>'] });"
-
 
     def initialize(driver, js_lib: nil, frames: true, cross_origin: false)
       @driver = driver

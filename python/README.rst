@@ -94,10 +94,11 @@ Versioning
 We use [SemVer](http://semver.org/) for versioning. For the versions available,
 see the [tags on this repository](https://github.com/saucelabs/sa11y/tags).
 
-License
+License and Copyright
 -------------
 
 This project is licensed under the MPL-2.0 License - see the [LICENSE.md](LICENSE.md) file for details
+Copyright (c) 2021 Sauce Labs
 
 Acknowledgments
 -------------

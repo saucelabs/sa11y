@@ -1,3 +1,9 @@
+# Copyright (c) 2021 Sauce Labs
+#
+# This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+# If a copy of the MPL was not distributed with this file, You can obtain one at
+# http://mozilla.org/MPL/2.0/.
+
 # frozen_string_literal: true
 
 require "spec_helper"
@@ -49,7 +55,7 @@ module Sa11y
     end
 
     def number_problems(analyze)
-      analyze.results["violations"].map {|v| v["nodes"].size}.inject(0, :+)
+      analyze.results["violations"].map { |v| v["nodes"].size }.inject(0, :+)
     end
   end
 end

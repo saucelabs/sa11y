@@ -9,3 +9,7 @@ Layout/LineLength:
 
 Style/AsciiComments:
   Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - "**/*_spec.rb"
