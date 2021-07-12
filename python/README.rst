@@ -21,12 +21,12 @@ Prerequisites
 * Install `npm`
 
 Installing
---------------
+-----------
 
     $ pip install sa11y
 
 Usage
--------------
+------
 
 Just pass in a valid driver instance to the `Analyze` class constructor and call the `#results` method.
 
@@ -54,7 +54,7 @@ This gem comes packaged with the latest axe™ version at release. If you want t
     Analyze(driver, js_lib=js_lib).results()
 
 Development
--------------
+------------
 
 This project will be developed in Python 3.x so please create a
 `virtual environment <https://pip.pypa.io/en/stable/>`_:
@@ -73,14 +73,19 @@ To install required scripts:
 
 
 Deployment
--------------
+-----------
 
 The project needs to include a dynamically generated `axe.min.js` file, and can be built with this command:
-
     python setup.py npm_install install sdist
 
-To release, makes sure you have twine installed and run:
-    twine upload -r  pypi dist/*
+Install build and twine
+    pip install build
+    pip install twine
+
+To build and release:
+    python -m build --wheel
+    twine check dist/*
+    twine upload dist/*
 
 Contributing
 -------------
@@ -89,25 +94,25 @@ Please read [CONTRIBUTING.md](../CONTRIBUTING.md) for details on our process for
 and please ensure you follow the [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md).
 
 Versioning
--------------
+-----------
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available,
 see the [tags on this repository](https://github.com/saucelabs/sa11y/tags).
 
 License and Copyright
--------------
+----------------------
 
 This project is licensed under the MPL-2.0 License - see the [LICENSE.md](LICENSE.md) file for details
 Copyright (c) 2021 Sauce Labs
 
 Acknowledgments
--------------
+----------------
 
 * Thanks to [@dequelabs](https://github.com/dequelabs) for their contributions to accessibility with the axe™ project
 * Thanks to [@seleniumhq](https://github.com/seleniumhq) for their contributions to browser automation with the Selenium project
 
 Testing
----------
+--------
 
 To run all tests, run the following:
 
