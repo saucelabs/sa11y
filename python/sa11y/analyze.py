@@ -63,7 +63,7 @@ class Analyze:
         self.driver.execute_script(self._js_lib)
         if self._cross_origin:
             self.driver.execute_script(iframe_allowed_script)
-        frames = self.driver.find_elements_by_xpath(".//*[local-name()='frame' or local-name()='iframe']")
+        frames = self.driver.find_element("xpath", ".//*[local-name()='frame' or local-name()='iframe']")
 
         for frame in frames:
             self.driver.switch_to.frame(frame)
